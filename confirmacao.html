@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmação - ItauTech</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Logo do Banco -->
+    <div class="logo">
+      <img src="itau.png" alt="Logo do Banco">
+    </div>
+
+    <!-- Página de Confirmação -->
+    <div class="confirmation-page">
+      <h2>Transação suspeita cancelada com sucesso!</h2>
+      <p>Protocolo de atendimento: <span class="protocol-number" id="protocolNumber"></span></p>
+      <button onclick="goBack()">Voltar ao Início</button>
+    </div>
+  </div>
+
+  <script>
+    // Gerar protocolo de 8 dígitos
+    const protocol = Math.floor(10000000 + Math.random() * 90000000);
+    document.getElementById('protocolNumber').textContent = protocol;
+
+    // Função para voltar ao início
+    function goBack() {
+      window.location.href = "formulario.html";
+    }
+  </script>
+</body>
+</html>
