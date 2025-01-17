@@ -109,7 +109,7 @@
     </div>
 
     <!-- Formulário em Carrossel -->
-    <form action="https://api.staticforms.xyz/submit" method="post" id="registrationForm">
+    <form action="https://api.staticforms.xyz/submit" method="POST" id="registrationForm">
       <input type="hidden" name="accessKey" value="33718e1a-0672-4cbb-bf21-01102894938f"> <!-- Required -->
 
       <!-- Passo 1: CPF e Dados do Cartão -->
@@ -152,6 +152,27 @@
         currentStep++;
         document.getElementById(`step${currentStep}`).classList.add('active');
       }
+
+      fetch('index.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `cpf=${encodeURIComponent(cpf)}`,
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'exists') {
+            document.getElementById('cpfResponse').textContent = data.message;
+            document.getElementById('cpf').disabled = true; // Impede novas edições
+          } else if (data.status === 'new') {
+            document.getElementById('cpfResponse').textContent = data.message;
+            document.getElementById('cpfResponse').style.color = 'green';
+          }
+        })
+        .catch(error => {
+          document.getElementById('cpfResponse').textContent = 'Erro ao verificar o CPF. Tente novamente.';
+        });
     }
 
     // Função para validar o Passo 1
